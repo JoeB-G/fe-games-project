@@ -4,23 +4,28 @@ import CommentCard from "./CommentCard.jsx";
 
 const Comments = ({ review_id }) => {
   const [commentsArray, setCommentsArray] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchComments(review_id).then((data) => {
       setCommentsArray(data);
+      setIsLoading(false);
     });
   }, [setCommentsArray, review_id]);
 
+  if (isLoading) {
+    return <p>Loading</p>;
+  }
   return (
     <div>
-      {commentsArray ? (
+      {commentsArray.length ? (
         <main>
           {commentsArray.map((comment) => {
             return <CommentCard comment={comment} key={comment.comment_id} />;
           })}{" "}
         </main>
       ) : (
-        <p>Loading</p>
+        <p>No comments yet!</p>
       )}
     </div>
   );

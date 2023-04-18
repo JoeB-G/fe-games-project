@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 
 const CommentCard = ({ comment }) => {
   const [userAvatar, setUserAvatar] = useState("")
-
+  
 useEffect(() => {
   fetchUser(comment.author).then((response) => {
     setUserAvatar(response.avatar_url)

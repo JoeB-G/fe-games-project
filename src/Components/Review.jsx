@@ -7,6 +7,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions"
 import Button from "@mui/material/Button"
+import Comments from "./Comments";
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import IconButton from '@mui/material/IconButton';
 
 const Review = () => {
   const { review_id } = useParams();
@@ -35,10 +39,12 @@ const Review = () => {
         </Typography>
       </CardContent>
       <CardActions>
-      <Button size="medium">Give Kudos {review.votes}</Button>
-        <Button size="medium">View Comments {review.comment_count}</Button>
-        <Button size="medium">Delete Review</Button>
+      <IconButton><KeyboardDoubleArrowUpIcon/></IconButton>
+          <Button size="medium" disabled>{review.votes}</Button>
+          <IconButton><KeyboardDoubleArrowDownIcon/></IconButton>
+        <Button size="small">Delete Review</Button>
       </CardActions>
+      <Comments review_id={review_id}/>
     </Card>
   );
 };

@@ -1,6 +1,6 @@
 const Footer = ({ array, currentPage, setCurrentPage, setLimit, limit }) => {
   return (
-    <div>
+    <footer>
       <button
         onClick={() => {
           setCurrentPage((currentPage) => currentPage - 1);
@@ -25,7 +25,7 @@ const Footer = ({ array, currentPage, setCurrentPage, setLimit, limit }) => {
       >
         Next Page
       </button>
-    </div>
+    </footer>
   );
 };
 

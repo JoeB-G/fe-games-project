@@ -18,7 +18,7 @@ const Reviews = () => {
     <div>
       <h1>PLACEHOLDER HEADING</h1>
       {reviewsArray ? (
-        <div>
+        <main>
           {reviewsArray.map((review) => {
             return <ReviewCard review={review} key={review.review_id} />;
           })}{" "}
@@ -29,7 +29,7 @@ const Reviews = () => {
             setLimit={setLimit}
             limit={limit}
           />
-        </div>
+        </main>
       ) : (
         <p>Loading</p>
       )}

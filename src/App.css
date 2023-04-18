@@ -1,1 +1,14 @@
 
+.Body {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .Review {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+
+  

@@ -12,3 +12,12 @@ export const fetchReviews = (page, limit) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const fetchReview = (review_id) => {
+  return myApi
+    .get(`/reviews/${review_id}`)
+    .then((response) => {
+      return response.data.review[0]
+    })
+    .catch((err) => console.log(err))
+}

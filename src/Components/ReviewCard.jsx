@@ -4,11 +4,17 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 const ReviewCard = ({ review }) => {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate(`/reviews/${review.review_id}`)
+  }
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+    <Card sx={{}}>
+      <CardActionArea onClick={handleClick}>
         <CardMedia
           component="img"
           height="140"

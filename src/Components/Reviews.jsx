@@ -21,7 +21,7 @@ const Reviews = () => {
         <main>
           {reviewsArray.map((review) => {
             return <ReviewCard review={review} key={review.review_id} />;
-          })}{" "}
+          })}
           <Footer
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}

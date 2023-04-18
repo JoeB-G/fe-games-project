@@ -21,3 +21,21 @@ export const fetchReview = (review_id) => {
     })
     .catch((err) => console.log(err))
 }
+
+
+export const fetchComments = (review_id) => {
+  return myApi
+    .get(`/reviews/${review_id}/comments`)
+    .then((response) => {
+      return response.data.comments
+    })
+    .catch((err) => console.log(err))
+}
+
+export const fetchUser = (username) => {
+  return myApi.get(`/users/${username}`)
+    .then((response) => {
+      return response.data.user
+    })
+    .catch((err) => {console.log(err)})
+}

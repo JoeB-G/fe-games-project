@@ -1,11 +1,16 @@
-import './App.css';
-import Reviews from "./Components/Reviews"
+import "./App.css";
+import Reviews from "./Components/Reviews";
+import Review from "./Components/Review"
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <Reviews />
-    </div>
+    <main>
+      <Routes>
+        <Route path="/" element={<Reviews />} />
+        <Route path="/reviews/:review_id" element={<Review />}/>
+      </Routes>
+    </main>
   );
 }
 

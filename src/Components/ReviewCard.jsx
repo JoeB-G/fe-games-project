@@ -2,13 +2,14 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const ReviewCard = ({ review }) => {
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+    <Card sx={{}}>
+      <Link to={`/reviews/${review.review_id}`}>
         <CardMedia
           component="img"
           height="140"
@@ -27,7 +28,7 @@ const ReviewCard = ({ review }) => {
             Posted {moment(review.created_at).format("DD/MM/YYYY HH:mm")}
           </Typography>
         </CardContent>
-      </CardActionArea>
+      </Link>
     </Card>
   );
 };

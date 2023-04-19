@@ -47,3 +47,10 @@ export const patchReviewVotes = (review_id, num) => {
 export const patchCommentVotes = (comment_id, num) => {
   return myApi.patch(`/comments/${comment_id}`, {inc_votes: num})
 }
+
+export const postComment = (commentObject, review_id) => {
+  return myApi.post(`/reviews/${review_id}/comments`, commentObject)
+  .then((response) => {
+    return response.data.comment
+  })
+}

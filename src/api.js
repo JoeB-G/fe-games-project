@@ -42,10 +42,8 @@ export const fetchUser = (username) => {
 
 export const patchReviewVotes = (review_id, num) => {
   return myApi.patch(`/reviews/${review_id}`, {inc_votes: num})
-    .catch((err) => {console.log(err)})
 }
 
 export const patchCommentVotes = (comment_id, num) => {
-  return myApi.patch(`/reviews/${comment_id}`, {inc_votes: num})
-    .catch((err) => {console.log(err)})
+  return myApi.patch(`/comments/${comment_id}`, {inc_votes: num})
 }

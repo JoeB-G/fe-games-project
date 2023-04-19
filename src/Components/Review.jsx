@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { fetchReview, patchReviewVotes } from "../api";
+import { fetchReview } from "../api";
 import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import Comments from "./Comments";
-import VotesButtons from "./VotesButtons";
+import ReviewVote from "./ReviewVote";
 
 const Review = () => {
   const { review_id } = useParams();
@@ -45,7 +45,7 @@ const Review = () => {
         </Typography>
       </CardContent>
       <CardActions>
-        <VotesButtons id={review.review_id} dataObject={review} setDataObject={setReview} patchFunction={patchReviewVotes}/>
+        <ReviewVote review={review} setReview={setReview}/>
         <Button size="small">Delete Review</Button>
       </CardActions>
       <Comments review_id={review_id} />

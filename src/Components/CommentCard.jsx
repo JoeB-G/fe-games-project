@@ -9,18 +9,19 @@ import moment from "moment";
 import Button from "@mui/material/Button";
 import { fetchUser } from "../api";
 import { useEffect, useState } from "react";
-import VotesButtons from "./VotesButtons";
-import { patchCommentVotes } from "../api";
+import CommentsVote from "./CommentsVote";
+
 
 const CommentCard = ({ comment }) => {
-  const [userAvatar, setUserAvatar] = useState("")
-  const [currentComment, setCurrentComment] = useState(comment)
+  const [userAvatar, setUserAvatar] = useState("");
+  const [currentComment, setCurrentComment] = useState("")
   
 useEffect(() => {
-  fetchUser(currentComment.author).then((response) => {
+  fetchUser(comment.author).then((response) => {
     setUserAvatar(response.avatar_url)
+    setCurrentComment(comment)
   })
-},[setUserAvatar, currentComment])
+},[setUserAvatar, comment])
 
 
   return (
@@ -29,14 +30,14 @@ useEffect(() => {
         avatar={
           <Avatar src={userAvatar} />
         }
-        title={currentComment.author}
-        subheader={moment(currentComment.created_at).format("DD/MM/YYYY HH:mm")}
+        title={comment.author}
+        subheader={moment(comment.created_at).format("DD/MM/YYYY HH:mm")}
       />
       <CardContent>
-        <Typography paragraph>{currentComment.body}</Typography>
+        <Typography paragraph>{comment.body}</Typography>
       </CardContent>
       <CardActions>
-        <VotesButtons id={currentComment.review_id} dataObject={currentComment} setDataObject={setCurrentComment} patchFunction={patchCommentVotes}/>
+        <CommentsVote  currentComment={currentComment} setCurrentComment={setCurrentComment}/>
         <Button size="small">Delete Comment</Button>
       </CardActions>
     </Card>

@@ -39,3 +39,13 @@ export const fetchUser = (username) => {
     })
     .catch((err) => {console.log(err)})
 }
+
+export const patchReviewVotes = (review_id, num) => {
+  return myApi.patch(`/reviews/${review_id}`, {inc_votes: num})
+    .catch((err) => {console.log(err)})
+}
+
+export const patchCommentVotes = (comment_id, num) => {
+  return myApi.patch(`/reviews/${comment_id}`, {inc_votes: num})
+    .catch((err) => {console.log(err)})
+}

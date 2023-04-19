@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { fetchReview } from "../api";
+import { fetchReview, patchReviewVotes } from "../api";
 import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -8,14 +8,13 @@ import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import Comments from "./Comments";
-import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
-import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
-import IconButton from "@mui/material/IconButton";
+import VotesButtons from "./VotesButtons";
 
 const Review = () => {
   const { review_id } = useParams();
-  const [review, setReview] = useState("");
+  const [review, setReview] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     fetchReview(review_id).then((review) => {
@@ -27,6 +26,7 @@ const Review = () => {
   if (isLoading) {
     return <p>Loading</p>;
   }
+  
 
   return (
     <Card sx={{}}>
@@ -45,15 +45,7 @@ const Review = () => {
         </Typography>
       </CardContent>
       <CardActions>
-        <IconButton>
-          <KeyboardDoubleArrowUpIcon />
-        </IconButton>
-        <Button size="medium" disabled>
-          {review.votes}
-        </Button>
-        <IconButton>
-          <KeyboardDoubleArrowDownIcon />
-        </IconButton>
+        <VotesButtons id={review.review_id} dataObject={review} setDataObject={setReview} patchFunction={patchReviewVotes}/>
         <Button size="small">Delete Review</Button>
       </CardActions>
       <Comments review_id={review_id} />

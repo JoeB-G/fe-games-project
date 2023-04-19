@@ -7,21 +7,20 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import moment from "moment";
 import Button from "@mui/material/Button";
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-import IconButton from '@mui/material/IconButton';
 import { fetchUser } from "../api";
 import { useEffect, useState } from "react";
-
+import VotesButtons from "./VotesButtons";
+import { patchCommentVotes } from "../api";
 
 const CommentCard = ({ comment }) => {
   const [userAvatar, setUserAvatar] = useState("")
+  const [currentComment, setCurrentComment] = useState(comment)
   
 useEffect(() => {
-  fetchUser(comment.author).then((response) => {
+  fetchUser(currentComment.author).then((response) => {
     setUserAvatar(response.avatar_url)
   })
-},[setUserAvatar, comment])
+},[setUserAvatar, currentComment])
 
 
   return (
@@ -30,16 +29,14 @@ useEffect(() => {
         avatar={
           <Avatar src={userAvatar} />
         }
-        title={comment.author}
-        subheader={moment(comment.created_at).format("DD/MM/YYYY HH:mm")}
+        title={currentComment.author}
+        subheader={moment(currentComment.created_at).format("DD/MM/YYYY HH:mm")}
       />
       <CardContent>
-        <Typography paragraph>{comment.body}</Typography>
+        <Typography paragraph>{currentComment.body}</Typography>
       </CardContent>
       <CardActions>
-          <IconButton><KeyboardDoubleArrowUpIcon/></IconButton>
-          <Button size="medium" disabled>{comment.votes}</Button>
-          <IconButton><KeyboardDoubleArrowDownIcon/></IconButton>
+        <VotesButtons id={currentComment.review_id} dataObject={currentComment} setDataObject={setCurrentComment} patchFunction={patchCommentVotes}/>
         <Button size="small">Delete Comment</Button>
       </CardActions>
     </Card>

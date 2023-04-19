@@ -22,7 +22,7 @@ const Comments = ({ review_id }) => {
         <main>
           {commentsArray.map((comment) => {
             return <CommentCard comment={comment} key={comment.comment_id} />;
-          })}{" "}
+          })}
         </main>
       ) : (
         <p>No comments yet!</p>

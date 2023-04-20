@@ -8,11 +8,11 @@ import { Link } from "react-router-dom";
 const ReviewCard = ({ review }) => {
 
   return (
-    <Card sx={{}}>
+    <Card sx={{width:385}}>
       <Link to={`/reviews/${review.review_id}`}>
         <CardMedia
           component="img"
-          height="140"
+          height="200"
           image={review.review_img_url}
           alt={`image for ${review.title}`}
         />

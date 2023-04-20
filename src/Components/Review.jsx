@@ -9,11 +9,15 @@ import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import Comments from "./Comments";
 import ReviewVote from "./ReviewVote";
+import CommentForm from "./CommentForm";
 
-const Review = () => {
+const Review = ({user}) => {
   const { review_id } = useParams();
   const [review, setReview] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [showCommentForm, setShowCommentForm] = useState(false)
+  const [commentsArray, setCommentsArray] = useState("");
+  const [err, setErr] = useState(false);
 
 
   useEffect(() => {
@@ -29,7 +33,7 @@ const Review = () => {
   
 
   return (
-    <Card sx={{}}>
+    <Card sx={{maxWidth: 500}}>
       <CardMedia
         component="img"
         height="300px"
@@ -46,9 +50,12 @@ const Review = () => {
       </CardContent>
       <CardActions>
         <ReviewVote review={review} setReview={setReview}/>
+        <Button size="small" onClick={() => {setShowCommentForm(!showCommentForm)}}>{showCommentForm ? <p>Hide Comment</p> : <p>Add Comment</p>}</Button>
         <Button size="small">Delete Review</Button>
       </CardActions>
-      <Comments review_id={review_id} />
+      {err ? <p>That comment did not succeed, please try again</p> : null}
+      {showCommentForm ? <CommentForm setErr={setErr}user={user} setShowCommentForm={setShowCommentForm} review_id={review_id} commentsArray={commentsArray} setCommentsArray={setCommentsArray}/> : null}
+      <Comments review_id={review_id} commentsArray={commentsArray} setCommentsArray={setCommentsArray}/>
     </Card>
   );
 };

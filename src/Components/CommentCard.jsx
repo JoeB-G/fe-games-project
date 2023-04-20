@@ -6,16 +6,17 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import moment from "moment";
-import Button from "@mui/material/Button";
 import { fetchUser } from "../api";
 import { useEffect, useState } from "react";
 import CommentsVote from "./CommentsVote";
+import CommentDelete from "./CommentDelete";
 
 
 const CommentCard = ({ comment }) => {
   const [userAvatar, setUserAvatar] = useState("");
   const [currentComment, setCurrentComment] = useState("")
-  
+  const [isDeleted, setIsDeleted] = useState(false)
+
 useEffect(() => {
   fetchUser(comment.author).then((response) => {
     setUserAvatar(response.avatar_url)
@@ -26,6 +27,7 @@ useEffect(() => {
 
   return (
     <Card sx={{ width: 500 }}>
+      {!isDeleted ? <div>
       <CardHeader
         avatar={
           <Avatar src={userAvatar} />
@@ -38,9 +40,11 @@ useEffect(() => {
       </CardContent>
       <CardActions>
         <CommentsVote  currentComment={currentComment} setCurrentComment={setCurrentComment}/>
-        <Button size="small">Delete Comment</Button>
-      </CardActions>
-    </Card>
+        <CommentDelete comment_id={comment.comment_id} isDeleted={isDeleted} setIsDeleted={setIsDeleted}/>
+      </CardActions> 
+      </div> : null
+    }
+    </Card> 
   );
 };
 

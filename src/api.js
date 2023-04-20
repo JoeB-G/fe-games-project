@@ -152,3 +152,7 @@ export const fetchCategories = () => {
     return response.data.categories
   })
 }
+
+export const deleteComment = (comment_id) => {
+  return myApi.delete(`/comments/${comment_id}`)
+}

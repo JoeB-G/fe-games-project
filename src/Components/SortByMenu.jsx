@@ -39,8 +39,11 @@ const SortByMenu = ({setSortOption}) => {
           sx={{ bgcolor: 'background.paper'}}
         >
           <ListItem
-            aria-expanded={open ? 'true' : 'false'}
-            onClick={handleClickListItem}
+          button
+          aria-expanded={open ? 'true' : 'false'}
+          onClick={handleClickListItem}
+          style={{maxWidth: 'fit-content'
+          }}
           >
             <ListItemText
               primary="Sort by"

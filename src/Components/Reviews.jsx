@@ -2,20 +2,23 @@ import { useEffect, useState } from "react";
 import { fetchReviews } from "../api.js";
 import ReviewCard from "./ReviewCard.jsx";
 import Footer from "./Footer.jsx";
+import SortByMenu from "./SortByMenu.jsx";
 
 const Reviews = () => {
+  const [sortOption, setSortOption] = useState("newest")
   const [reviewsArray, setReviewsArray] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
 
   useEffect(() => {
-    fetchReviews(currentPage, limit).then((data) => {
+    fetchReviews(currentPage, limit, sortOption).then((data) => {
       setReviewsArray(data);
     });
-  }, [setReviewsArray, currentPage, limit]);
+  }, [setReviewsArray, currentPage, limit, sortOption]);
 
   return (
     <div>
+         <SortByMenu setSortOption={setSortOption}/>
       {reviewsArray ? (
         <main>
           {reviewsArray.map((review) => {

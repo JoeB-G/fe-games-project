@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const ReviewCard = ({ review }) => {
 
   return (
-    <Card sx={{width:385}}>
+    <Card sx={{width:416}}>
       <Link to={`/reviews/${review.review_id}`}>
         <CardMedia
           component="img"

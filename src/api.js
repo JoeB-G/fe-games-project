@@ -4,13 +4,38 @@ const myApi = axios.create({
   baseURL: "https://games-database.onrender.com/api",
 });
 
-export const fetchReviews = (page, limit) => {
-  return myApi
-    .get(`/reviews?page=${page}&limit=${limit}`)
-    .then((response) => {
-      return response.data.reviews;
-    })
-    .catch((err) => console.log(err));
+export const fetchReviews = (page, limit, sortOption) => {
+  if (sortOption === "newest") {
+    return myApi
+      .get(`/reviews?page=${page}&limit=${limit}`)
+      .then((response) => {
+        return response.data.reviews;
+      })
+      .catch((err) => console.log(err));
+  }  if (sortOption === "oldest") {
+    return myApi
+      .get(`/reviews?page=${page}&limit=${limit}&order=ASC`)
+      .then((response) => {
+        return response.data.reviews;
+      })
+      .catch((err) => console.log(err));
+  }
+  if (sortOption === "most votes") {
+    return myApi
+      .get(`/reviews?page=${page}&limit=${limit}&sort_by=votes`)
+      .then((response) => {
+        return response.data.reviews;
+      })
+      .catch((err) => console.log(err));
+  }
+  if (sortOption === "most comments") {
+    return myApi
+      .get(`/reviews?page=${page}&limit=${limit}&sort_by=comment_count`)
+      .then((response) => {
+        return response.data.reviews;
+      })
+      .catch((err) => console.log(err));
+  }
 };
 
 export const fetchReview = (review_id) => {

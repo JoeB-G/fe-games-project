@@ -2,17 +2,20 @@ import { useEffect, useState } from "react";
 import { fetchReviews } from "../api.js";
 import ReviewCard from "./ReviewCard.jsx";
 import Footer from "./Footer.jsx";
+import { useParams } from "react-router-dom";
 
 const Reviews = () => {
   const [reviewsArray, setReviewsArray] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
+  const {category} = useParams()
 
+  
   useEffect(() => {
-    fetchReviews(currentPage, limit).then((data) => {
+    fetchReviews(currentPage, limit, category).then((data) => {
       setReviewsArray(data);
     });
-  }, [setReviewsArray, currentPage, limit]);
+  }, [setReviewsArray, currentPage, limit, category]);
 
   return (
     <div>

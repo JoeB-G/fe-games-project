@@ -4,13 +4,21 @@ const myApi = axios.create({
   baseURL: "https://games-database.onrender.com/api",
 });
 
-export const fetchReviews = (page, limit) => {
-  return myApi
-    .get(`/reviews?page=${page}&limit=${limit}`)
-    .then((response) => {
-      return response.data.reviews;
-    })
-    .catch((err) => console.log(err));
+export const fetchReviews = (page, limit, category) => {
+  if (category === "view all" || !category){
+    return myApi
+      .get(`/reviews?page=${page}&limit=${limit}`)
+      .then((response) => {
+        return response.data.reviews;
+      })
+      .catch((err) => console.log(err));
+  }
+  else {return myApi
+  .get(`/reviews?page=${page}&limit=${limit}&category=${category}`)
+  .then((response) => {
+    return response.data.reviews;
+  })
+  .catch((err) => console.log(err));}
 };
 
 export const fetchReview = (review_id) => {
@@ -52,5 +60,12 @@ export const postComment = (commentObject, review_id) => {
   return myApi.post(`/reviews/${review_id}/comments`, commentObject)
   .then((response) => {
     return response.data.comment
+  })
+}
+
+export const fetchCategories = () => {
+  return myApi.get(`/categories`)
+  .then((response) => {
+    return response.data.categories
   })
 }

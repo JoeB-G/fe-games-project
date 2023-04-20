@@ -4,7 +4,7 @@ import ReviewCard from "./ReviewCard.jsx";
 import Footer from "./Footer.jsx";
 import SortByMenu from "./SortByMenu.jsx";
 import { useParams } from "react-router-dom";
-
+import CategorySelect from "./CategorySelect";
 
 const Reviews = () => {
   const [sortOption, setSortOption] = useState("newest")
@@ -25,6 +25,7 @@ const Reviews = () => {
   return (
     <div>
       <SortByMenu setSortOption={setSortOption}/>
+      <CategorySelect />
       {isLoading ? <p>Loading</p> : null}
       {reviewsArray ? (
         <main>

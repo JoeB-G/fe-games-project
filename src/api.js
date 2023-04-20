@@ -32,7 +32,7 @@ export const fetchReviews = (page, limit, sortOption, category) => {
   } 
   else if (sortOption === "oldest") {
   return myApi
-      .get(`/reviews?page=${page}&limit=${limit}&category=${category}&order=DESC`)
+      .get(`/reviews?page=${page}&limit=${limit}&category=${category}&order=ASC`)
       .then((response) => {
         return response.data.reviews;
       })
@@ -65,6 +65,38 @@ export const fetchReviews = (page, limit, sortOption, category) => {
   else if (sortOption === "most comments") {
   return myApi
       .get(`/reviews?page=${page}&limit=${limit}&category=${category}&sort_by=comment_count`)
+      .then((response) => {
+        return response.data.reviews;
+      })
+      .catch((err) => console.log(err));
+  }
+  if ((sortOption === "least votes") && (!category || category === "view all")) {
+    return myApi
+      .get(`/reviews?page=${page}&limit=${limit}&sort_by=votes&order=ASC`)
+      .then((response) => {
+        return response.data.reviews;
+      })
+      .catch((err) => console.log(err));
+  } 
+  else if (sortOption === "least votes") {
+  return myApi
+      .get(`/reviews?page=${page}&limit=${limit}&category=${category}&sort_by=votes&order=ASC`)
+      .then((response) => {
+        return response.data.reviews;
+      })
+      .catch((err) => console.log(err));
+  }
+  if ((sortOption === "least comments") && (!category || category === "view all")) {
+    return myApi
+      .get(`/reviews?page=${page}&limit=${limit}&sort_by=comment_count&order=ASC`)
+      .then((response) => {
+        return response.data.reviews;
+      })
+      .catch((err) => console.log(err));
+  } 
+  else if (sortOption === "least comments") {
+  return myApi
+      .get(`/reviews?page=${page}&limit=${limit}&category=${category}&sort_by=comment_count&order=ASC`)
       .then((response) => {
         return response.data.reviews;
       })

@@ -10,7 +10,7 @@ import Menu from '@mui/material/Menu';
 const SortByMenu = ({setSortOption}) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const sortOptionsArray = [
-        "newest", "oldest", "most votes", "most comments"
+        "newest", "oldest", "most votes", "most comments", "least votes", "least comments"
     ]
 
 

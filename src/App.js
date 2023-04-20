@@ -2,7 +2,6 @@ import "./App.css";
 import Reviews from "./Components/Reviews";
 import Review from "./Components/Review";
 import { Routes, Route } from "react-router-dom";
-import CategorySelect from "./Components/CategorySelect";
 
 function App() {
   const user = {
@@ -18,7 +17,6 @@ function App() {
   return (
     <div className="app">
       <h1>PLACEHOLDER HEADING</h1>{" "}
-      <CategorySelect />
       <main>
         <p>Signed in as {user.username}</p>
         <Routes>

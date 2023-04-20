@@ -4,39 +4,73 @@ const myApi = axios.create({
   baseURL: "https://games-database.onrender.com/api",
 });
 
-export const fetchReviews = (page, limit, sortOption) => {
-  if (sortOption === "newest") {
+export const fetchReviews = (page, limit, sortOption, category) => {
+  if ((sortOption === "newest") && (!category || category === "view all")) {
     return myApi
       .get(`/reviews?page=${page}&limit=${limit}`)
       .then((response) => {
         return response.data.reviews;
       })
       .catch((err) => console.log(err));
-  }  if (sortOption === "oldest") {
+  } 
+  else if (sortOption === "newest") {
+  return myApi
+      .get(`/reviews?page=${page}&limit=${limit}&category=${category}`)
+      .then((response) => {
+        return response.data.reviews;
+      })
+      .catch((err) => console.log(err));
+  }
+  
+    if ((sortOption === "oldest") && (!category || category === "view all")) {
     return myApi
       .get(`/reviews?page=${page}&limit=${limit}&order=ASC`)
       .then((response) => {
         return response.data.reviews;
       })
       .catch((err) => console.log(err));
+  } 
+  else if (sortOption === "oldest") {
+  return myApi
+      .get(`/reviews?page=${page}&limit=${limit}&category=${category}&order=DESC`)
+      .then((response) => {
+        return response.data.reviews;
+      })
+      .catch((err) => console.log(err));
   }
-  if (sortOption === "most votes") {
+      if ((sortOption === "most votes") && (!category || category === "view all")) {
     return myApi
       .get(`/reviews?page=${page}&limit=${limit}&sort_by=votes`)
       .then((response) => {
         return response.data.reviews;
       })
       .catch((err) => console.log(err));
+  } 
+  else if (sortOption === "most votes") {
+  return myApi
+      .get(`/reviews?page=${page}&limit=${limit}&category=${category}&sort_by=votes`)
+      .then((response) => {
+        return response.data.reviews;
+      })
+      .catch((err) => console.log(err));
   }
-  if (sortOption === "most comments") {
+       if ((sortOption === "most comments") && (!category || category === "view all")) {
     return myApi
       .get(`/reviews?page=${page}&limit=${limit}&sort_by=comment_count`)
       .then((response) => {
         return response.data.reviews;
       })
       .catch((err) => console.log(err));
+  } 
+  else if (sortOption === "most comments") {
+  return myApi
+      .get(`/reviews?page=${page}&limit=${limit}&category=${category}&sort_by=comment_count`)
+      .then((response) => {
+        return response.data.reviews;
+      })
+      .catch((err) => console.log(err));
   }
-};
+  }
 
 export const fetchReview = (review_id) => {
   return myApi
@@ -77,5 +111,12 @@ export const postComment = (commentObject, review_id) => {
   return myApi.post(`/reviews/${review_id}/comments`, commentObject)
   .then((response) => {
     return response.data.comment
+  })
+}
+
+export const fetchCategories = () => {
+  return myApi.get(`/categories`)
+  .then((response) => {
+    return response.data.categories
   })
 }

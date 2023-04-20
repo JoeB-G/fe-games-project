@@ -3,22 +3,29 @@ import { fetchReviews } from "../api.js";
 import ReviewCard from "./ReviewCard.jsx";
 import Footer from "./Footer.jsx";
 import SortByMenu from "./SortByMenu.jsx";
+import { useParams } from "react-router-dom";
+
 
 const Reviews = () => {
   const [sortOption, setSortOption] = useState("newest")
   const [reviewsArray, setReviewsArray] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
+  const {category} = useParams()
+  const [isLoading, setIsLoading] = useState(true)
 
+  
   useEffect(() => {
-    fetchReviews(currentPage, limit, sortOption).then((data) => {
+    fetchReviews(currentPage, limit, sortOption, category).then((data) => {
       setReviewsArray(data);
+      setIsLoading(false)
     });
-  }, [setReviewsArray, currentPage, limit, sortOption]);
+  }, [setReviewsArray, currentPage, limit, sortOption, category]);
 
   return (
     <div>
-         <SortByMenu setSortOption={setSortOption}/>
+      <SortByMenu setSortOption={setSortOption}/>
+      {isLoading ? <p>Loading</p> : null}
       {reviewsArray ? (
         <main>
           {reviewsArray.map((review) => {

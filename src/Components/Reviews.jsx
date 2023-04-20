@@ -9,16 +9,19 @@ const Reviews = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const {category} = useParams()
+  const [isLoading, setIsLoading] = useState(true)
 
   
   useEffect(() => {
     fetchReviews(currentPage, limit, category).then((data) => {
       setReviewsArray(data);
+      setIsLoading(false)
     });
   }, [setReviewsArray, currentPage, limit, category]);
 
   return (
     <div>
+      {isLoading ? <p>Loading</p> : null}
       {reviewsArray ? (
         <main>
           {reviewsArray.map((review) => {

@@ -41,12 +41,14 @@ const CategorySelect = () => {
     return (
       <div>
         <List
-
           sx={{ bgcolor: 'background.paper'}}
         >
           <ListItem
+          button
             aria-expanded={open ? 'true' : 'false'}
             onClick={handleClickListItem}
+            style={{maxWidth: 'fit-content'
+            }}
           >
             <ListItemText
               primary="Category"

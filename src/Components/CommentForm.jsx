@@ -8,6 +8,7 @@ import { useState } from "react";
 import { postComment } from "../api";
 
 const CommentForm = ({
+  setErr,
   user,
   setShowCommentForm,
   review_id,
@@ -15,18 +16,19 @@ const CommentForm = ({
   setCommentsArray,
 }) => {
   const [newComment, setNewComment] = useState("");
-  const [err, setErr] = useState(false);
-
   const handleEnter = () => {
-    setShowCommentForm(false);
-    const commentObject = { username: user.username, body: newComment };
-    postComment(commentObject, review_id, user.username)
-      .then((newComment) => {
-        setCommentsArray([newComment, ...commentsArray]);
-      })
-      .catch(() => {
-        setErr(true);
-      });
+    if (newComment) {
+      setShowCommentForm(false);
+      const commentObject = { username: user.username, body: newComment };
+      postComment(commentObject, review_id, user.username)
+        .then((newComment) => {
+          setCommentsArray([newComment, ...commentsArray]);
+        })
+        .catch(() => {
+          setErr(true);
+          setCommentsArray(commentsArray.slice(1));
+        });
+    }
   };
 
   return (
@@ -36,24 +38,22 @@ const CommentForm = ({
         title={user.username}
       />
       <CardContent>
-        {!err ? (
-          <TextField
+        <TextField
           onKeyDown={(keyPressed) => {
             if (keyPressed.key === "Enter") {
-                keyPressed.preventDefault()
-                handleEnter()
+              keyPressed.preventDefault();
+              handleEnter();
             }
           }}
-            helperText="Type your comment then press enter to submit"
-            label="Comment"
-            multiline
-            minRows={4}
-            fullWidth
-            onChange={(event) => {
-              setNewComment(event.target.value);
-            }}
-          />
-        ) : null}
+          helperText="Type your comment then press enter to submit"
+          label="Comment"
+          multiline
+          minRows={4}
+          fullWidth
+          onChange={(event) => {
+            setNewComment(event.target.value);
+          }}
+        />
       </CardContent>
     </Card>
   );

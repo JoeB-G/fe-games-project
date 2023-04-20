@@ -25,7 +25,7 @@ useEffect(() => {
 
 
   return (
-    <Card sx={{ maxWidth: 500 }}>
+    <Card sx={{ width: 500 }}>
       <CardHeader
         avatar={
           <Avatar src={userAvatar} />

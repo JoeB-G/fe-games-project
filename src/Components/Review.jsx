@@ -17,6 +17,8 @@ const Review = ({user}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [showCommentForm, setShowCommentForm] = useState(false)
   const [commentsArray, setCommentsArray] = useState("");
+  const [err, setErr] = useState(false);
+
 
   useEffect(() => {
     fetchReview(review_id).then((review) => {
@@ -51,7 +53,8 @@ const Review = ({user}) => {
         <Button size="small" onClick={() => {setShowCommentForm(!showCommentForm)}}>{showCommentForm ? <p>Hide Comment</p> : <p>Add Comment</p>}</Button>
         <Button size="small">Delete Review</Button>
       </CardActions>
-      {showCommentForm ? <CommentForm user={user} setShowCommentForm={setShowCommentForm} review_id={review_id} commentsArray={commentsArray} setCommentsArray={setCommentsArray}/> : null}
+      {err ? <p>That comment did not succeed, please try again</p> : null}
+      {showCommentForm ? <CommentForm setErr={setErr}user={user} setShowCommentForm={setShowCommentForm} review_id={review_id} commentsArray={commentsArray} setCommentsArray={setCommentsArray}/> : null}
       <Comments review_id={review_id} commentsArray={commentsArray} setCommentsArray={setCommentsArray}/>
     </Card>
   );

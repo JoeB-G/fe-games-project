@@ -31,7 +31,7 @@ const Review = ({user}) => {
   
 
   return (
-    <Card sx={{}}>
+    <Card sx={{maxWidth: 500}}>
       <CardMedia
         component="img"
         height="300px"

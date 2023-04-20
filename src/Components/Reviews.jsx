@@ -16,7 +16,6 @@ const Reviews = () => {
 
   return (
     <div>
-      <h1>PLACEHOLDER HEADING</h1>
       {reviewsArray ? (
         <main>
           {reviewsArray.map((review) => {

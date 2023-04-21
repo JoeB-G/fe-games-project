@@ -36,6 +36,7 @@ const Review = () => {
     return (<ErrorCard errorMessage={errAPI}/>)
   }
   return (
+    <main>
     <Card sx={{ width: 416 }}>
       {!isLoading ? (
         <div>
@@ -63,7 +64,6 @@ const Review = () => {
             >
               {showCommentForm ? <p>Hide Comment</p> : <p>Add Comment</p>}
             </Button>
-            <Button size="small">Delete Review</Button>
           </CardActions>
           {commentErr ? (
             <p>That comment did not succeed, please try again</p>
@@ -87,6 +87,7 @@ const Review = () => {
         <p>Loading</p>
       )}
     </Card>
+    </main>
   );
 };
 

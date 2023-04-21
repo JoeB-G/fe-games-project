@@ -41,7 +41,7 @@ const SelectUser = () => {
 
   return (
       <div>
-        <List sx={{ bgcolor: "background.paper" }}>
+        <List sx={{ bgcolor: "clear" }}>
           <ListItem
             button
             aria-expanded={open ? "true" : "false"}
@@ -51,6 +51,7 @@ const SelectUser = () => {
             <ListItemText
               primary="Sign in as"
               secondary={usersArray[selectedIndex]}
+              secondaryTypographyProps={{color: "white"}}
             />
           </ListItem>
         </List>

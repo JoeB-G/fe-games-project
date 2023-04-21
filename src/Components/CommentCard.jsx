@@ -7,15 +7,18 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import moment from "moment";
 import { fetchUser } from "../api";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import CommentsVote from "./CommentsVote";
 import CommentDelete from "./CommentDelete";
+import { UserContext } from "../Context/User";
 
 
 const CommentCard = ({ comment }) => {
+  const {user} = useContext(UserContext)
   const [userAvatar, setUserAvatar] = useState("");
   const [currentComment, setCurrentComment] = useState("")
   const [isDeleted, setIsDeleted] = useState(false)
+  const [deleteFailed, setDeleteFailed] = useState(false)
 
 useEffect(() => {
   fetchUser(comment.author).then((response) => {
@@ -37,12 +40,13 @@ useEffect(() => {
       />
       <CardContent>
         <Typography paragraph>{comment.body}</Typography>
+        {deleteFailed ? <p style={{"fontSize":"70%", "color":"red"}}>Delete Unsuccessful, please try again</p> : null}
       </CardContent>
       <CardActions>
         <CommentsVote  currentComment={currentComment} setCurrentComment={setCurrentComment}/>
-        <CommentDelete comment_id={comment.comment_id} isDeleted={isDeleted} setIsDeleted={setIsDeleted}/>
+        {user===comment.author ? <CommentDelete comment_id={comment.comment_id} isDeleted={isDeleted} setIsDeleted={setIsDeleted} setDeleteFailed={setDeleteFailed}/> : null}
       </CardActions> 
-      </div> : null
+      </div> : <p>Delete Successful</p>
     }
     </Card> 
   );

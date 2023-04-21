@@ -110,7 +110,6 @@ export const fetchReview = (review_id) => {
     .then((response) => {
       return response.data.review[0]
     })
-    .catch((err) => console.log(err))
 }
 
 
@@ -155,4 +154,11 @@ export const fetchCategories = () => {
 
 export const deleteComment = (comment_id) => {
   return myApi.delete(`/comments/${comment_id}`)
+}
+
+export const fetchUsers = () => {
+  return myApi.get(`/users`)
+  .then((response) => {
+    return response.data.users
+  })
 }

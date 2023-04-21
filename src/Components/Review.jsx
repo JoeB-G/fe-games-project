@@ -11,7 +11,7 @@ import Comments from "./Comments";
 import ReviewVote from "./ReviewVote";
 import CommentForm from "./CommentForm";
 
-const Review = ({user}) => {
+const Review = () => {
   const { review_id } = useParams();
   const [review, setReview] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +24,8 @@ const Review = ({user}) => {
     fetchReview(review_id).then((review) => {
       setReview(review);
       setIsLoading(false);
-    });
+    })
+    .catch((err) => {console.log(err)})
   }, [setReview, review_id]);
 
   if (isLoading) {
@@ -54,7 +55,7 @@ const Review = ({user}) => {
         <Button size="small">Delete Review</Button>
       </CardActions>
       {err ? <p>That comment did not succeed, please try again</p> : null}
-      {showCommentForm ? <CommentForm setErr={setErr}user={user} setShowCommentForm={setShowCommentForm} review_id={review_id} commentsArray={commentsArray} setCommentsArray={setCommentsArray}/> : null}
+      {showCommentForm ? <CommentForm setErr={setErr} setShowCommentForm={setShowCommentForm} review_id={review_id} commentsArray={commentsArray} setCommentsArray={setCommentsArray}/> : null}
       <Comments review_id={review_id} commentsArray={commentsArray} setCommentsArray={setCommentsArray}/>
     </Card>
   );

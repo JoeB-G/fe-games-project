@@ -4,23 +4,32 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
-import { postComment } from "../api";
+import { useState, useContext, useEffect } from "react";
+import { fetchUser, postComment } from "../api";
+import { UserContext } from "../Context/User";
 
 const CommentForm = ({
   setErr,
-  user,
   setShowCommentForm,
   review_id,
   commentsArray,
   setCommentsArray,
 }) => {
+
   const [newComment, setNewComment] = useState("");
+  const {user} = useContext(UserContext)
+  const [userObject, setUserObject] = useState("")
+
+  useEffect(() => {
+    fetchUser(user).then((response) => {
+    setUserObject(response)
+  })}, [setUserObject, user])
+
   const handleEnter = () => {
     if (newComment) {
       setShowCommentForm(false);
-      const commentObject = { username: user.username, body: newComment };
-      postComment(commentObject, review_id, user.username)
+      const commentObject = { username: userObject.username, body: newComment };
+      postComment(commentObject, review_id, userObject.username)
         .then((newComment) => {
           setCommentsArray([newComment, ...commentsArray]);
         })
@@ -34,8 +43,8 @@ const CommentForm = ({
   return (
     <Card sx={{ maxWidth: 500 }}>
       <CardHeader
-        avatar={<Avatar src={user.avatar_url} />}
-        title={user.username}
+        avatar={<Avatar src={userObject.avatar_url} />}
+        title={userObject.username}
       />
       <CardContent>
         <TextField

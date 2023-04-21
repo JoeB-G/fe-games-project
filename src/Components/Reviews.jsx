@@ -5,6 +5,7 @@ import Footer from "./Footer.jsx";
 import SortByMenu from "./SortByMenu.jsx";
 import { useParams } from "react-router-dom";
 import CategorySelect from "./CategorySelect";
+import ErrorCard from "./ErrorCard.jsx";
 
 const Reviews = () => {
   const [sortOption, setSortOption] = useState("newest")
@@ -13,15 +14,18 @@ const Reviews = () => {
   const [limit, setLimit] = useState(10);
   const {category} = useParams()
   const [isLoading, setIsLoading] = useState(true)
-
+  const [errAPI, setErrAPI] = useState("")
   
   useEffect(() => {
     fetchReviews(currentPage, limit, sortOption, category).then((data) => {
       setReviewsArray(data);
       setIsLoading(false)
-    });
+    }).catch((err) => {setErrAPI(err.message)})
   }, [setReviewsArray, currentPage, limit, sortOption, category]);
 
+  if (errAPI) {
+    return (<ErrorCard errorMessage={errAPI}/>)
+  }
   return (
     <div>
       <SortByMenu setSortOption={setSortOption}/>

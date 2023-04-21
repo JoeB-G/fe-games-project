@@ -12,44 +12,57 @@ import CommentsVote from "./CommentsVote";
 import CommentDelete from "./CommentDelete";
 import { UserContext } from "../Context/User";
 
-
 const CommentCard = ({ comment }) => {
-  const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext);
   const [userAvatar, setUserAvatar] = useState("");
-  const [currentComment, setCurrentComment] = useState("")
-  const [isDeleted, setIsDeleted] = useState(false)
-  const [deleteFailed, setDeleteFailed] = useState(false)
-  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false)
+  const [currentComment, setCurrentComment] = useState("");
+  const [isDeleted, setIsDeleted] = useState(false);
+  const [deleteFailed, setDeleteFailed] = useState(false);
+  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
 
-useEffect(() => {
-  fetchUser(comment.author).then((response) => {
-    setUserAvatar(response.avatar_url)
-    setCurrentComment(comment)
-  })
-},[setUserAvatar, comment])
-
+  useEffect(() => {
+    fetchUser(comment.author).then((response) => {
+      setUserAvatar(response.avatar_url);
+      setCurrentComment(comment);
+    });
+  }, [setUserAvatar, comment]);
 
   return (
-    <Card sx={{ width: 500 }}>
-      {!isDeleted ? <div>
-      <CardHeader
-        avatar={
-          <Avatar src={userAvatar} />
-        }
-        title={comment.author}
-        subheader={moment(comment.created_at).format("DD/MM/YYYY HH:mm")}
-      />
-      <CardContent>
-        <Typography paragraph>{comment.body}</Typography>
-        {deleteFailed ? <p style={{"fontSize":"70%", "color":"red"}}>Delete Unsuccessful, please try again</p> : null}
-      </CardContent>
-      <CardActions>
-        <CommentsVote  currentComment={currentComment} setCurrentComment={setCurrentComment}/>
-        {user===comment.author ? <CommentDelete comment_id={comment.comment_id} isDeleted={isDeleted} setIsDeleted={setIsDeleted} setDeleteFailed={setDeleteFailed} setShowDeleteSuccess={setShowDeleteSuccess}/> : null}
-      </CardActions>
-      </div> : null}
+    <Card sx={{ width: 500, margin: "0.5rem" }}>
+      {!isDeleted ? (
+        <div>
+          <CardHeader
+            avatar={<Avatar src={userAvatar} />}
+            title={comment.author}
+            subheader={moment(comment.created_at).format("DD/MM/YYYY HH:mm")}
+          />
+          <CardContent>
+            <Typography paragraph>{comment.body}</Typography>
+            {deleteFailed ? (
+              <p style={{ fontSize: "70%", color: "red" }}>
+                Delete Unsuccessful, please try again
+              </p>
+            ) : null}
+          </CardContent>
+          <CardActions>
+            <CommentsVote
+              currentComment={currentComment}
+              setCurrentComment={setCurrentComment}
+            />
+            {user === comment.author ? (
+              <CommentDelete
+                comment_id={comment.comment_id}
+                isDeleted={isDeleted}
+                setIsDeleted={setIsDeleted}
+                setDeleteFailed={setDeleteFailed}
+                setShowDeleteSuccess={setShowDeleteSuccess}
+              />
+            ) : null}
+          </CardActions>
+        </div>
+      ) : null}
       {showDeleteSuccess ? <p>Delete Successful</p> : null}
-    </Card> 
+    </Card>
   );
 };
 

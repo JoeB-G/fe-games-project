@@ -15,16 +15,16 @@ const CommentForm = ({
   commentsArray,
   setCommentsArray,
 }) => {
-
   const [newComment, setNewComment] = useState("");
-  const {user} = useContext(UserContext)
-  const [userObject, setUserObject] = useState("")
-  const [showErrorMessage, setShowErrorMessage] = useState(false)
+  const { user } = useContext(UserContext);
+  const [userObject, setUserObject] = useState("");
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   useEffect(() => {
     fetchUser(user).then((response) => {
-    setUserObject(response)
-  })}, [setUserObject, user])
+      setUserObject(response);
+    });
+  }, [setUserObject, user]);
 
   const handleEnter = () => {
     if (/[A-Za-z\d]/.test(newComment)) {
@@ -38,9 +38,8 @@ const CommentForm = ({
           setCommentErr(true);
           setCommentsArray(commentsArray.slice(1));
         });
-    }
-    else {
-      setShowErrorMessage(true)
+    } else {
+      setShowErrorMessage(true);
     }
   };
 

@@ -6,10 +6,12 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 
 const ReviewCard = ({ review }) => {
-
   return (
-    <Card sx={{width:416}}>
-      <Link to={`/reviews/${review.review_id}`} style={{color:"black", textDecoration:"none"}}>
+    <Card sx={{ width: 416, height: 400, margin: "0.5rem" }}>
+      <Link
+        to={`/reviews/${review.review_id}`}
+        style={{ color: "black", textDecoration: "none" }}
+      >
         <CardMedia
           component="img"
           height="200"

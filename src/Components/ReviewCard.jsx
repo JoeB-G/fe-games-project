@@ -9,7 +9,7 @@ const ReviewCard = ({ review }) => {
 
   return (
     <Card sx={{width:416}}>
-      <Link to={`/reviews/${review.review_id}`}>
+      <Link to={`/reviews/${review.review_id}`} style={{color:"black", textDecoration:"none"}}>
         <CardMedia
           component="img"
           height="200"

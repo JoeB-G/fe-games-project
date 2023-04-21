@@ -19,6 +19,7 @@ const CommentCard = ({ comment }) => {
   const [currentComment, setCurrentComment] = useState("")
   const [isDeleted, setIsDeleted] = useState(false)
   const [deleteFailed, setDeleteFailed] = useState(false)
+  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false)
 
 useEffect(() => {
   fetchUser(comment.author).then((response) => {
@@ -44,10 +45,10 @@ useEffect(() => {
       </CardContent>
       <CardActions>
         <CommentsVote  currentComment={currentComment} setCurrentComment={setCurrentComment}/>
-        {user===comment.author ? <CommentDelete comment_id={comment.comment_id} isDeleted={isDeleted} setIsDeleted={setIsDeleted} setDeleteFailed={setDeleteFailed}/> : null}
-      </CardActions> 
-      </div> : <p>Delete Successful</p>
-    }
+        {user===comment.author ? <CommentDelete comment_id={comment.comment_id} isDeleted={isDeleted} setIsDeleted={setIsDeleted} setDeleteFailed={setDeleteFailed} setShowDeleteSuccess={setShowDeleteSuccess}/> : null}
+      </CardActions>
+      </div> : null}
+      {showDeleteSuccess ? <p>Delete Successful</p> : null}
     </Card> 
   );
 };

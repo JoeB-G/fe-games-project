@@ -6,7 +6,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { Link } from "react-router-dom";
+import { Link } from "@mui/material";
 
 const CategorySelect = () => {
   const [categoriesArray, setCategoriesArray] = useState([]);
@@ -55,7 +55,7 @@ const CategorySelect = () => {
       </List>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         {categoriesArray.map((option, index) => (
-          <Link key={option} to={`/reviews/category/${option}`}>
+          <Link key={option} href={`/reviews/category/${option}`} color="inherit" underline="none">
             <MenuItem
               key={option}
               selected={index === selectedIndex}

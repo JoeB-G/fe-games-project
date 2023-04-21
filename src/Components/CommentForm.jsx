@@ -27,7 +27,7 @@ const CommentForm = ({
   })}, [setUserObject, user])
 
   const handleEnter = () => {
-    if (newComment) {
+    if (/[A-Za-z\d]/.test(newComment)) {
       setShowCommentForm(false);
       const commentObject = { username: userObject.username, body: newComment };
       postComment(commentObject, review_id, userObject.username)

@@ -9,7 +9,7 @@ import { fetchUser, postComment } from "../api";
 import { UserContext } from "../Context/User";
 
 const CommentForm = ({
-  setErr,
+  setCommentErr,
   setShowCommentForm,
   review_id,
   commentsArray,
@@ -19,6 +19,7 @@ const CommentForm = ({
   const [newComment, setNewComment] = useState("");
   const {user} = useContext(UserContext)
   const [userObject, setUserObject] = useState("")
+  const [showErrorMessage, setShowErrorMessage] = useState(false)
 
   useEffect(() => {
     fetchUser(user).then((response) => {
@@ -34,9 +35,12 @@ const CommentForm = ({
           setCommentsArray([newComment, ...commentsArray]);
         })
         .catch(() => {
-          setErr(true);
+          setCommentErr(true);
           setCommentsArray(commentsArray.slice(1));
         });
+    }
+    else {
+      setShowErrorMessage(true)
     }
   };
 
@@ -64,6 +68,7 @@ const CommentForm = ({
           }}
         />
       </CardContent>
+      {showErrorMessage ? <p>Cannot submit empty comment</p> : null}
     </Card>
   );
 };

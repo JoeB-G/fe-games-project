@@ -28,7 +28,7 @@ const CommentCard = ({ comment }) => {
   }, [setUserAvatar, comment]);
 
   return (
-    <Card sx={{ width: 500, margin: "0.5rem" }}>
+    <Card sx={{ width: 416, margin: "0.5rem" }}>
       {!isDeleted ? (
         <div>
           <CardHeader

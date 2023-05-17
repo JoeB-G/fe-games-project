@@ -37,7 +37,7 @@ const Review = () => {
   }
   return (
     <main>
-    <Card sx={{ width: 416 }}>
+    <Card sx={{ mixWidth: 300, maxWidth: 500 }}>
       {!isLoading ? (
         <div>
           <CardMedia
